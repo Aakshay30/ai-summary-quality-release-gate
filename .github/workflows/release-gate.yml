@@ -1,0 +1,40 @@
+name: AI summary release gate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  release-gate:
+    name: Blocking — build, contracts, golden evaluation and Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: TypeScript build
+        run: npm run build
+      - name: AI service response contract tests
+        run: npm run test:contracts
+      - name: Deterministic golden-set evaluation
+        run: npm run test:evaluation
+      - name: Server API authorization and citation tests
+        run: npm run test:api
+      - name: Playwright UI release gate
+        run: npm test
+      - name: Upload failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-summary-release-gate-evidence
+          path: |
+            playwright-report/
+            test-results/
+            canary-results.json
+          if-no-files-found: warn
+          retention-days: 21
