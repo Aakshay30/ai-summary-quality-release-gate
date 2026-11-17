@@ -1,0 +1,48 @@
+[
+  {
+    "id": "package-missing-grounded",
+    "ticketMessages": [
+      { "id": "m1", "body": "Package was marked delivered yesterday but customer cannot find it." },
+      { "id": "m2", "body": "Agent verified the delivery address and suggested checking building reception." }
+    ],
+    "expectedFacts": ["marked delivered", "customer cannot find it", "verified the delivery address"],
+    "forbiddenClaims": ["refund has been issued", "case is resolved", "package was recovered"],
+    "output": { "summary": "Package marked delivered; customer cannot find it. Agent verified the delivery address.", "sourceIds": ["m1", "m2"] },
+    "expected": "pass"
+  },
+  {
+    "id": "refund-no-invention",
+    "ticketMessages": [
+      { "id": "r1", "body": "Customer asks when the refund will arrive." },
+      { "id": "r2", "body": "Agent says the refund status is still pending." }
+    ],
+    "expectedFacts": ["refund", "status is still pending"],
+    "forbiddenClaims": ["refund has been issued", "money has arrived"],
+    "output": { "summary": "Customer asks about the refund; status is still pending.", "sourceIds": ["r1", "r2"] },
+    "expected": "pass"
+  },
+  {
+    "id": "cross-ticket-source",
+    "ticketMessages": [{ "id": "m1", "body": "Package missing." }],
+    "expectedFacts": ["package missing"],
+    "forbiddenClaims": ["case is resolved"],
+    "output": { "summary": "Package missing.", "sourceIds": ["m1", "x9"] },
+    "expected": "fail"
+  },
+  {
+    "id": "fabricated-resolution",
+    "ticketMessages": [{ "id": "m1", "body": "Customer cannot find delivered package." }],
+    "expectedFacts": ["customer cannot find delivered package"],
+    "forbiddenClaims": ["case is resolved"],
+    "output": { "summary": "Customer cannot find delivered package. Case is resolved.", "sourceIds": ["m1"] },
+    "expected": "fail"
+  },
+  {
+    "id": "missing-source",
+    "ticketMessages": [{ "id": "m1", "body": "Customer asks about delivery." }],
+    "expectedFacts": ["customer asks about delivery"],
+    "forbiddenClaims": [],
+    "output": { "summary": "Customer asks about delivery.", "sourceIds": [] },
+    "expected": "fail"
+  }
+]
