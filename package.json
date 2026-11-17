@@ -1,0 +1,29 @@
+{
+  "name": "playwright-ai-summary-release-gate",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Server-validated, deterministic Playwright release gate for an AI-assisted ticket summary feature",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/server.js",
+    "dev": "tsx src/server.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test tests/summary.spec.ts",
+    "test:api": "playwright test tests/api",
+    "test:contracts": "tsx --test tests/contracts/*.test.ts",
+    "test:evaluation": "tsx --test tests/evaluation/*.test.ts",
+    "test:canary": "tsx scripts/run-canary.ts",
+    "test:regression": "INTENTIONAL_CITATION_REGRESSION=1 playwright test tests/summary.spec.ts --grep \"invalid cross-ticket citations\"",
+    "check": "npm run build && npm run test:contracts && npm run test:evaluation && npm run test:api && npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.30",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
