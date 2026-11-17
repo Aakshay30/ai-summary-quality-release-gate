@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Desk · Ticket T-100</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar"><strong>◎ Support Desk</strong><span>Agent workspace</span></header>
+  <main class="layout">
+    <aside class="sidebar"><p class="eyebrow">QUEUE</p><div class="queue-item active">T-100 <span>Open</span></div><div class="queue-item">T-200 <span>Open</span></div></aside>
+    <section class="ticket" aria-labelledby="ticket-title">
+      <div class="ticket-heading"><div><p class="eyebrow">TICKET T-100 · CUSTOMER SUPPORT</p><h1 id="ticket-title">Package marked delivered but missing</h1><p class="muted">Customer conversation</p></div><span class="status">Open</span></div>
+      <article class="message"><div class="message-meta">Customer · Message m1</div><p>My package was marked delivered yesterday, but it is not at my door.</p></article>
+      <article class="message agent"><div class="message-meta">Agent · Message m2</div><p>I confirmed the delivery address. Please check with building reception as well.</p></article>
+      <section class="summary-panel" aria-labelledby="summary-title">
+        <div class="summary-title-row"><div><p class="eyebrow">AI ASSISTANCE</p><h2 id="summary-title">Ticket summary</h2></div><span class="local-tag">LOCAL FIXTURE</span></div>
+        <p class="muted" id="summary-status" role="status" aria-live="polite">No summary generated yet.</p>
+        <p id="summary-text" class="summary-text" hidden></p>
+        <p id="summary-sources" class="sources" hidden></p>
+        <div class="actions"><button id="generate-summary" class="primary">Generate summary</button><button id="retry-summary" hidden>Retry</button><button id="approve-summary" class="approve" disabled>Approve summary</button></div>
+        <p id="approval-status" class="muted" role="status" aria-live="polite"></p>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
